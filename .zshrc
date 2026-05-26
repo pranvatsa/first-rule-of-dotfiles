@@ -120,5 +120,19 @@ fi
 # lesspipe
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
+# Process aliases
+alias findpid='ps aux | grep -v grep | grep -i'
+alias killpid='sudo kill -9'
+
 # Personal overrides (gitignored — API keys, etc.)
 [ -f "$HOME/.zshrc.local" ] && source "$HOME/.zshrc.local"
+
+# Ollama optimizations for my laptop
+export OLLAMA_FLASH_ATTENTION=1
+export OLLAMA_KV_CACHE_TYPE=q8_0
+export OLLAMA_KEEP_ALIVE=24h
+export OLLAMA_MAX_LOADED_MODELS=1
+export OLLAMA_NUM_PARALLEL=1
+export OLLAMA_GPU_OVERHEAD=256000000
+
+alias sudo='sudo '
