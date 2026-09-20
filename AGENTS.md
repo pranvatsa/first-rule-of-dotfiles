@@ -16,10 +16,13 @@ project `AGENTS.md` files.
 - `~/.config/opencode/AGENTS.md` is symlinked from `$DOTFILES/AGENTS.md`, so
   this file applies to every OpenCode session.
 
-## Setup on a fresh machine
+## Commands
 
-Run `install.sh`. It clones the repo, installs Oh My Zsh, creates the symlinks,
-and installs the custom plugins.
+```sh
+./install.sh        # new machine: clone the repo, install Oh My Zsh, make symlinks, add plugins
+zsh -n <file>       # syntax-check a shell file before you commit it
+exec zsh            # reload .zshrc in the current shell
+```
 
 ## Machine
 
@@ -93,3 +96,17 @@ Keep it brief. Code comments, commit messages, PR descriptions, and replies are
 short and to the point. Start every commit subject with a type: `feat`, `fix`,
 `docs`, `chore`, `refactor`, `test`, `style`, or `perf`. Never use the author's
 name. No verbosity unless there is a real need for it.
+
+**When to comment at all:** keep comments rare. Add one only when the code cannot say the thing itself: a non-obvious constraint, a reason behind a choice, or a coupling between files that must change together. If a comment only restates the code, delete it. When you change code, update or delete its comments in the same change. A wrong comment is worse than no comment. Verify every claim before you write it.
+
+**README.md:** brief and precise. Every command it lists must exist and work. No marketing tone.
+
+## Definition of Done
+
+A change is done only when there is evidence, not an assumption.
+
+- The project's build and tests pass. Run the commands in the project's own `AGENTS.md`.
+- Behavior is verified at runtime.
+- Comments and docs match the change. Delete notes that are no longer true.
+- No secret, token, or machine-local path is in a tracked file.
+- Nothing is committed until the user or the project workflow authorizes it.
