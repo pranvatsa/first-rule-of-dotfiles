@@ -4,7 +4,8 @@ First rule of dotfiles : You don't talk about dotfiles.
 
 ## Prerequisites
 
-- [Oh My Zsh](https://ohmyz.sh/) installed
+- CachyOS/Arch-based system with `zsh`, `git`, and `curl`.
+- [Oh My Zsh](https://ohmyz.sh/) is installed by `install.sh` if missing.
 
 ## Quick install
 
@@ -13,10 +14,13 @@ curl -fsSL https://raw.githubusercontent.com/pranvatsa/first-rule-of-dotfiles/ma
 exec zsh
 ```
 
+The installer prompts for the clone path and defaults to
+`~/gitproj/first-rule-of-dotfiles`.
+
 ## Manual setup
 
 ```bash
-git clone git@github.com:pranvatsa/first-rule-of-dotfiles.git $HOME/gitproj/first-rule-of-dotfiles
+git clone https://github.com/pranvatsa/first-rule-of-dotfiles.git $HOME/gitproj/first-rule-of-dotfiles
 export DOTFILES=$HOME/gitproj/first-rule-of-dotfiles
 
 ln -sf $DOTFILES/.zshrc ~/.zshrc
@@ -33,7 +37,10 @@ exec zsh
 
 ## Post-setup
 
-Machine-local blocks (opencode, pyenv, envman, lesspipe) are guarded with existence checks — they only activate if the tool is installed.
+`.zshrc` exports `$DOTFILES` resolved through the `~/.zshrc` symlink, so it stays
+correct if the repo moves. Machine-local blocks (`opencode`, `pyenv`, `fnm`,
+`envman`, `lesspipe`, ssh-agent) are guarded with existence checks — they only
+activate if the tool is installed.
 
 For personal secrets or machine-specific overrides, create `~/.zshrc.local` — it's auto-sourced by `.zshrc` and excluded from version control via `.gitignore`.
 

@@ -2,6 +2,9 @@
 # Single Oh My Zsh init lives here. Do NOT source full desktop configs
 # (e.g. cachyos-config.zsh) from ~/.zshrc.local — they re-init OMZ.
 
+# Repo root, resolved through this file's symlink so it follows the repo.
+export DOTFILES="${${(%):-%x}:A:h}"
+
 # Path to Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -45,11 +48,7 @@ HISTORY_IGNORE="(l|ls|ll|la|c|clear|history|exit|q|pwd|* --help)"
 # --- Editor / locale ---
 
 export LANG="${LANG:-en_US.UTF-8}"
-if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='vim'
-else
-  export EDITOR="${EDITOR:-vim}"
-fi
+export EDITOR="${EDITOR:-vim}"
 
 # Readable man pages via less colors.
 export LESS_TERMCAP_md="$(tput bold 2>/dev/null; tput setaf 2 2>/dev/null)"
@@ -139,8 +138,9 @@ export OLLAMA_MAX_LOADED_MODELS=1
 export OLLAMA_NUM_PARALLEL=1
 export OLLAMA_GPU_OVERHEAD=256000000
 
+# systemd ssh-agent (before .zshrc.local, which may override it)
+[ -n "$XDG_RUNTIME_DIR" ] && [ -S "$XDG_RUNTIME_DIR/ssh-agent.socket" ] &&
+  export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
+
 # Personal / machine-local overrides — LAST so they win.
 [ -f "$HOME/.zshrc.local" ] && source "$HOME/.zshrc.local"
-
-# Use systemd ssh-agent
-export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"

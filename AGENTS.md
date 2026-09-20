@@ -7,8 +7,8 @@ project `AGENTS.md` files.
 
 ## Structure
 
-- Set `$DOTFILES` to the repo root (for example
-  `export DOTFILES=$HOME/gitproj/first-rule-of-dotfiles`).
+- `$DOTFILES` is the repo root and is exported by `.zshrc`, resolved through
+  the `~/.zshrc` symlink so it follows the repo if it moves.
 - `~/.zshrc` is symlinked from `$DOTFILES/.zshrc`. An edit changes the live
   shell immediately.
 - `~/.oh-my-zsh/custom/aliases.zsh` is symlinked from
@@ -83,8 +83,9 @@ TTY is present. The message is harmless.
 
 ## Watch out for
 
-- `.zshrc` machine-local blocks (`opencode`, `pyenv`, `envman`, `lesspipe`) are
-  guarded with existence checks, so they are safe on any machine.
+- `.zshrc` machine-local blocks (`opencode`, `pyenv`, `fnm`, `envman`,
+  `lesspipe`, ssh-agent) are guarded with existence checks, so they are safe on
+  any machine.
 - The `plugins` line in `.zshrc` references plugins that must be present in
   `$ZSH/custom/plugins/`. The repo does not bundle them.
 - If you move the repo directory, all symlinks break. Update them with `ln -sf`
